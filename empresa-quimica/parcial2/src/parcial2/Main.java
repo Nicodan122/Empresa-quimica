@@ -6,6 +6,9 @@ class Main {
 
 	public static void main(String[] args) {
 		
+		Conexion nc = new Conexion();
+		nc.conectar();
+		
 		
 		// Crear cada tipo de usuario
         Cliente cliente = new Cliente("nicoCliente", "1234", 1, 1);
@@ -13,10 +16,10 @@ class Main {
         Gerente gerente = new Gerente("nicoGerente", "7890", 3, 1);
         
         // Agregar productos 
-        Producto p1 = new Producto("Quimico1", 1000, "Descripción del producto 1", 0, 100);
-        Producto p2 = new Producto("Quimico2", 2000, "Descripción del producto 2", 0,200);
-        Producto p3 = new Producto("Quimico3", 1000, "Descripción del producto 1", 1,300);
-        Producto p4 = new Producto("Quimico4", 2000, "Descripción del producto 2", 1,400);
+        Producto p1 = new Producto("Quimico1", 1000, "Descripción del producto 1", 0, 10);
+        Producto p2 = new Producto("Quimico2", 2000, "Descripción del producto 2", 0, 20);
+        Producto p3 = new Producto("Quimico3", 1000, "Descripción del producto 1", 1, 30);
+        Producto p4 = new Producto("Quimico4", 2000, "Descripción del producto 2", 1, 40);
      
         //Cargar Ventas
         Ventas v1 = new Ventas("Dos Quimicos 1", 20, 90000, "29/10");

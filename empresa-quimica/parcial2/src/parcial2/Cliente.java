@@ -1,6 +1,7 @@
 package parcial2;
 
 import javax.swing.JOptionPane;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class Cliente extends Usuario {
 	public List<Compra> getComprasRealizadas() {
         return comprasRealizadas;
     }
+	
+	
 
     public void agregarCompra(Compra compra) {
         comprasRealizadas.add(compra);
@@ -42,12 +45,15 @@ public class Cliente extends Usuario {
 	
 	public void mostrarMenu(){
 		String[] opciones = {"Ver Productos","Comprar Producto","Salir"};
+		int opcion=0;
 		
-		int eleccion = JOptionPane.showOptionDialog(
+		do {
+		
+		 opcion = JOptionPane.showOptionDialog(
 				null,"Seleccione una opción", "Menú Cliente", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,opciones,opciones[0]
 				);
 		
-		  switch (eleccion) {
+		  switch (opcion) {
           case 0:
               Producto.verProductos();
               break;
@@ -61,6 +67,8 @@ public class Cliente extends Usuario {
           default:
               JOptionPane.showMessageDialog(null, "Opción no válida");
       }
+		  
+	} while (opcion!=2);
 		
 	}
 	

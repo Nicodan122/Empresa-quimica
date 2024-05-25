@@ -2,7 +2,7 @@ package parcial2;
 
 import javax.swing.JOptionPane;
 
-class Usuario {
+public class Usuario {
 	private String nombre;
 	private String contra;
 	private int idUsuario;
@@ -12,6 +12,12 @@ class Usuario {
 		this.contra = contra;
 		this.idUsuario = idUsuario;
 	}
+	
+	public Usuario(String nombre, String contra) {
+		this.nombre = nombre;
+		this.contra = contra;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -43,6 +49,11 @@ class Usuario {
         	return false;
         }
     }
+	
+	@Override
+	public String toString() {
+		return "Usuario [id=" + idUsuario + ", nombre=" + nombre + ", email=" + contra + "]\n";
+	}
 	
 	
 

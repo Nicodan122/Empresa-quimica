@@ -2,7 +2,7 @@ package parcial2;
 
 import javax.swing.JOptionPane;
 
-class Empleado extends Usuario{
+public class Empleado extends Usuario{
 	private int idEmpleado;
 
 	public Empleado(String nombre, String contra, int idUsuario, int idEmpleado) {
@@ -21,11 +21,15 @@ class Empleado extends Usuario{
 	public void mostrarMenu(){
 		String[] opciones = {"Ver Productos","Comprar Producto","Salir"};
 		
-		int eleccion = JOptionPane.showOptionDialog(
+		int opcion = 0;
+		
+		do {
+		
+		 opcion = JOptionPane.showOptionDialog(
 				null,"Seleccione una opción", "Menú Cliente", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,opciones,opciones[0]
 				);
 		
-		  switch (eleccion) {
+		  switch (opcion) {
           case 0:
         	  Producto.verProductos();
               break;
@@ -39,6 +43,8 @@ class Empleado extends Usuario{
           default:
               JOptionPane.showMessageDialog(null, "Opción no válida");
       }
+		  
+		} while (opcion!=2);
 		  
 	}
 	

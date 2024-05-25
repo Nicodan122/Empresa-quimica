@@ -1,13 +1,20 @@
-package parcial2;
+package vista;
 
 import javax.swing.JOptionPane;
+
+import controlador.UsuarioControlador;
+import parcial2.Cliente;
+import parcial2.Empleado;
+import parcial2.Gerente;
+import parcial2.Producto;
+import parcial2.Ventas;
 
 class Main {
 
 	public static void main(String[] args) {
 		
-		Conexion nc = new Conexion();
-		nc.conectar();
+		UsuarioControlador controlar = new UsuarioControlador();
+		JOptionPane.showMessageDialog(null, controlar.getAllUsers());
 		
 		
 		// Crear cada tipo de usuario
@@ -16,10 +23,10 @@ class Main {
         Gerente gerente = new Gerente("nicoGerente", "7890", 3, 1);
         
         // Agregar productos 
-        Producto p1 = new Producto("Quimico1", 1000, "Descripción del producto 1", 0, 10);
-        Producto p2 = new Producto("Quimico2", 2000, "Descripción del producto 2", 0, 20);
-        Producto p3 = new Producto("Quimico3", 1000, "Descripción del producto 1", 1, 30);
-        Producto p4 = new Producto("Quimico4", 2000, "Descripción del producto 2", 1, 40);
+        Producto p1 = new Producto(1, "Quimico1", 1000, "Descripción del producto 1", 0, 10);
+        Producto p2 = new Producto(2,"Quimico2", 2000, "Descripción del producto 2", 0, 20);
+        Producto p3 = new Producto(3,"Quimico3", 1000, "Descripción del producto 1", 1, 30);
+        Producto p4 = new Producto(4,"Quimico4", 2000, "Descripción del producto 2", 1, 40);
      
         //Cargar Ventas
         Ventas v1 = new Ventas("Dos Quimicos 1", 20, 90000, "29/10");

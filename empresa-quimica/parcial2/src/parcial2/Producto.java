@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 
 public class Producto {
+	private int idProducto;
 	private String nombre;
 	private double precio;
 	private String descripcion;
@@ -14,8 +15,9 @@ public class Producto {
 	private int stock;
 	private static List<Producto> listaProductos = new ArrayList<>();
 	
-	public Producto(String nombre, double precio, String descripcion, int nivel, int stock) {
+	public Producto(int idProducto, String nombre, double precio, String descripcion, int nivel, int stock) {
 		super();
+		this.idProducto = idProducto;
 		this.nombre = nombre;
 		this.precio = precio;
 		this.descripcion = descripcion;
@@ -24,6 +26,20 @@ public class Producto {
 		
 		listaProductos.add(this);
 	}
+	
+	
+
+	public int getIdProducto() {
+		return idProducto;
+	}
+
+
+
+	public void setIdProducto(int idProducto) {
+		this.idProducto = idProducto;
+	}
+
+
 
 	public String getNombre() {
 		return nombre;

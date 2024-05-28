@@ -19,7 +19,7 @@ public class Empleado extends Usuario{
 	}
 	
 	public void mostrarMenu(){
-		String[] opciones = {"Ver Productos","Comprar Producto","Salir"};
+		String[] opciones = {"Ver Productos","Registrar venta","Salir"};
 		
 		int opcion = 0;
 		

@@ -2,6 +2,8 @@ package parcial2;
 
 import javax.swing.JOptionPane;
 
+import controlador.ProductoControlador;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,26 +24,12 @@ public class Cliente extends Usuario {
 	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
 	}
-	
+
 	public List<Compra> getComprasRealizadas() {
         return comprasRealizadas;
     }
-	
-	
-
-    public void agregarCompra(Compra compra) {
-        comprasRealizadas.add(compra);
-    }
     
-    public void mostrarCompras() {
-        StringBuilder mensaje = new StringBuilder("Lista de compras realizadas:\n");
-        for (Compra compra : comprasRealizadas) {
-            mensaje.append("Producto: ").append(compra.getProductoComprado().getNombre()).append(", ")
-                   .append("Cantidad: ").append(compra.getCantidad()).append(", ")
-                   .append("Precio Total: ").append(compra.getPrecioTotal()).append("\n");
-        }
-        JOptionPane.showMessageDialog(null, mensaje.toString());
-    }
+    
 	
 	public void mostrarMenu(){
 		String[] opciones = {"Ver Productos","Comprar Producto","Salir"};
@@ -55,11 +43,10 @@ public class Cliente extends Usuario {
 		
 		  switch (opcion) {
           case 0:
-              Producto.verProductos();
+        	  //Mostar productos como lo hace la clase Gerente.
               break;
           case 1:
-              Compra.realizarCompra(this);
-              mostrarCompras();
+               //Comprar productos
               break;
           case 2:
         	  System.exit(0);
@@ -71,8 +58,7 @@ public class Cliente extends Usuario {
 	} while (opcion!=2);
 		
 	}
-	
-	
+
 	
 
 }

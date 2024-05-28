@@ -26,8 +26,13 @@ public class ProductoControlador implements ProductoRepository  {
 			ResultSet resultSet = statement.executeQuery();
 			
 			while (resultSet.next()) {
-				Producto producto = new Producto(resultSet.getInt("idProducto"), resultSet.getString("nombre"), resultSet.getDouble("precio"), resultSet.getString("descripcion"),
-				resultSet.getInt("nivel"), resultSet.getInt("stock"));
+				Producto producto = new Producto(resultSet.getInt("idProducto"),
+				resultSet.getString("nombre"),
+				resultSet.getDouble("precio"),
+				resultSet.getString("descripcion"),
+				resultSet.getInt("nivel"),
+				resultSet.getInt("stock")
+				);
 				product.add(producto);
 			}	
 		} catch (SQLException e) {

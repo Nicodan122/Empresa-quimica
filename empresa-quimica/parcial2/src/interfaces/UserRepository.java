@@ -12,10 +12,23 @@ public interface UserRepository {
 	
 	Usuario getUserById(int id);
 	
+	int getIdUsuario(String nombreUsuario); 
+	
 	void addUser(Usuario user);
+	
 	
 	void updateUser(Usuario user);
 	
 	void deleteUser(int id);
+	
+	boolean validarCredenciales(String nombre, String contra);
+	
+	void addGerente(int idUsuario);
+	
+	void addEmpleado(int idUsuario);
+	
+	void addCliente(int idUsuario);
+	
+	
 	
 }

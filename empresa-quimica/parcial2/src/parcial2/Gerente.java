@@ -1,16 +1,24 @@
 package parcial2;
 
+import java.util.List;
+
 import javax.swing.JOptionPane;
+
+import controlador.ProductoControlador;
 import controlador.UsuarioControlador;
 import parcial2.Usuario;
 
 public class Gerente extends Usuario {
 	private int idGerente;
+	private ProductoControlador productoControlador;
 
 	public Gerente(String nombre, String contra, int idUsuario, int idGerente) {
 		super(nombre, contra, idUsuario);
 		this.idGerente = idGerente;
+		this.productoControlador = new ProductoControlador();
 	}
+	
+	
 
 	public int getIdGerente() {
 		return idGerente;
@@ -33,12 +41,26 @@ public class Gerente extends Usuario {
 	        // Crear un nuevo producto
 	        Producto nuevoProducto = new Producto(idProducto, nombre, precio, descripcion, nivel, stock);
 
-	        // Agregar el nuevo producto a la lista de productos
-	        Producto.agregarProducto(nuevoProducto);
-
-	        // Mostrar un mensaje de confirmación
+	        productoControlador.addProduct(nuevoProducto);
+	        
 	        JOptionPane.showMessageDialog(null, "Producto agregado exitosamente.");
 	    }
+	  
+	  public void mostrarProductos() {
+	        List<Producto> productos = productoControlador.getAllProducts();
+	        StringBuilder mensaje = new StringBuilder("Productos:\n");
+	        for (Producto producto : productos) {
+	            mensaje.append("ID: ").append(producto.getIdProducto())
+	                    .append(", Nombre: ").append(producto.getNombre())
+	                    .append(", Precio: ").append(producto.getPrecio())
+	                    .append(", Descripción: ").append(producto.getDescripcion())
+	                    .append(", Nivel: ").append(producto.getNivel())
+	                    .append(", Stock: ").append(producto.getStock())
+	                    .append("\n");
+	        }
+	        JOptionPane.showMessageDialog(null, mensaje.toString());
+	    }
+	  
 	
 	public void mostrarMenu(){
 		String[] opciones = {"Ver Productos","Crear producto","Cargar Venta","Ver Ventas","Agregar Usuario","Editar usuario","Eliminar usuario","Salir"};
@@ -55,11 +77,11 @@ public class Gerente extends Usuario {
 		
 		  switch (opcion) {
           case 0:
-        	  Producto.verProductos();
+        	  mostrarProductos();
               break;
           case 1:
         	  agregarProductoManualmente();
-        	  Producto.verProductos();
+        	  mostrarProductos();
               break;
           case 2:
         	  Ventas.registrarVenta();
@@ -69,19 +91,23 @@ public class Gerente extends Usuario {
         	  Ventas.verVentas();
         	  break;
           case 4:
+        	  //Agregar USUARIO
         	  String nombre = JOptionPane.showInputDialog("Ingrese nombre");
   			  String contra = JOptionPane.showInputDialog("Ingrese contra");
   			  controlar.addUser(new Usuario(nombre,contra));		
   			break;
           case 5:
+        	  //Editar
         	  Usuario encontrado = BuscarUsuario(controlar);
   			  String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre de : " + encontrado.getNombre());
-  			  String nuevoContra = JOptionPane.showInputDialog("Ingrese el nuevo email de : " + encontrado.getContra());
-  			  encontrado.setContra(nuevoContra);
+  			  String nuevoContra = JOptionPane.showInputDialog("Ingrese el nuevo contra de : " + encontrado.getContra());
   			  encontrado.setNombre(nuevoNombre);
+  			  encontrado.setContra(nuevoContra);
   			  controlar.updateUser(encontrado);
-  			  break;
           case 6:
+        	   Usuario eliminar = BuscarUsuario(controlar);
+  			   controlar.deleteUser(eliminar.getIdUsuario());
+  			break;
 
           case 7:
               System.exit(0);

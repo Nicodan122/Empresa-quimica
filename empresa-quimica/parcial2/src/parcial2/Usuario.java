@@ -2,6 +2,8 @@ package parcial2;
 
 import javax.swing.JOptionPane;
 
+import controlador.UsuarioControlador;
+
 public class Usuario {
 	private String nombre;
 	private String contra;
@@ -49,6 +51,22 @@ public class Usuario {
         	return false;
         }
     }
+	
+	public boolean iniciarSesionB() {
+		
+		// Solicitar nombre de usuario y contraseña al usuario
+		
+        String nombreIngresado = JOptionPane.showInputDialog("Ingrese su nombre de usuario:");
+        String contraIngresada = JOptionPane.showInputDialog("Ingrese su contraseña:");
+
+        // Consultar la base de datos para validar las credenciales
+        
+        UsuarioControlador controlador = new UsuarioControlador();
+        return controlador.validarCredenciales(nombreIngresado, contraIngresada);
+	}
+	
+	
+	
 	
 	@Override
 	public String toString() {

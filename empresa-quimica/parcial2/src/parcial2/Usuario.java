@@ -1,5 +1,8 @@
 package parcial2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import controlador.UsuarioControlador;
@@ -8,18 +11,37 @@ public class Usuario {
 	private String nombre;
 	private String contra;
 	private int idUsuario;
+	private String rol;
+	
+	public Usuario(String nombre, String contra, int idUsuario, String rol) {
+		super();
+		this.nombre = nombre;
+		this.contra = contra;
+		this.idUsuario = idUsuario;
+		this.rol = rol;
+	}
+	
+	public Usuario(String nombre, String contra, String rol) {
+		this.nombre = nombre;
+		this.contra = contra;
+		this.rol = rol;
+	}
+	
+	
+	
 	public Usuario(String nombre, String contra, int idUsuario) {
 		super();
 		this.nombre = nombre;
 		this.contra = contra;
 		this.idUsuario = idUsuario;
 	}
-	
+
 	public Usuario(String nombre, String contra) {
+		super();
 		this.nombre = nombre;
 		this.contra = contra;
 	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -39,28 +61,20 @@ public class Usuario {
 		this.idUsuario = idUsuario;
 	}
 	
-	public boolean iniciarSesion() {
-		
-        String nombre1 = JOptionPane.showInputDialog("Ingrese su nombre de usuario:");
-        String contra1 = JOptionPane.showInputDialog("Ingrese su contraseña:");
+	public String getRol() {
+		return rol;
+	}
 
-       
-        if (this.nombre.equals(nombre1) && this.contra.equals(contra1)) {
-            return true;
-        }else {
-        	return false;
-        }
-    }
-	
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
 	public boolean iniciarSesionB() {
 		
 		// Solicitar nombre de usuario y contraseña al usuario
 		
         String nombreIngresado = JOptionPane.showInputDialog("Ingrese su nombre de usuario:");
         String contraIngresada = JOptionPane.showInputDialog("Ingrese su contraseña:");
-
-        // Consultar la base de datos para validar las credenciales
-        
         UsuarioControlador controlador = new UsuarioControlador();
         return controlador.validarCredenciales(nombreIngresado, contraIngresada);
 	}
@@ -68,9 +82,11 @@ public class Usuario {
 	
 	
 	
+	
+	
 	@Override
 	public String toString() {
-		return "Usuario [id=" + idUsuario + ", nombre=" + nombre + ", email=" + contra + "]\n";
+		return "Usuario [id=" + idUsuario + ", nombre=" + nombre + ", contra=" + contra + ", rol=" + rol + "]\n";
 	}
 	
 	

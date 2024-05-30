@@ -8,28 +8,15 @@ import controlador.ProductoControlador;
 import controlador.UsuarioControlador;
 import parcial2.Usuario;
 
-public class Gerente extends Usuario {
-	private int idGerente;
+public class Gerente {
 	private ProductoControlador productoControlador;
-
-	public Gerente(String nombre, String contra, int idUsuario, int idGerente) {
-		super(nombre, contra, idUsuario);
-		this.idGerente = idGerente;
-		this.productoControlador = new ProductoControlador();
-	}
 	
-	
-
-	public int getIdGerente() {
-		return idGerente;
+	  public Gerente(ProductoControlador productoControlador) {
+		this.productoControlador = productoControlador;
 	}
 
-	public void setIdGerente(int idGerente) {
-		this.idGerente = idGerente;
-	}
-	
-	  public void agregarProductoManualmente() {
-		  
+	public void agregarProductoManualmente() {
+			try {
 	        // Ingresar los datos del producto 
 		    int idProducto = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id:"));
 	        String nombre = JOptionPane.showInputDialog("Ingrese el nombre del producto:");
@@ -40,10 +27,12 @@ public class Gerente extends Usuario {
      
 	        // Crear un nuevo producto
 	        Producto nuevoProducto = new Producto(idProducto, nombre, precio, descripcion, nivel, stock);
-
 	        productoControlador.addProduct(nuevoProducto);
 	        
 	        JOptionPane.showMessageDialog(null, "Producto agregado exitosamente.");
+			} catch (NumberFormatException e) {
+	            JOptionPane.showMessageDialog(null, "Error: Por favor, ingrese valores válidos.");
+	        }
 	    }
 	  
 	  public void mostrarProductos() {
@@ -94,21 +83,24 @@ public class Gerente extends Usuario {
         	  //Agregar USUARIO
         	  String nombre = JOptionPane.showInputDialog("Ingrese nombre");
   			  String contra = JOptionPane.showInputDialog("Ingrese contra");
-  			  controlar.addUser(new Usuario(nombre,contra));		
+  			  String rol = JOptionPane.showInputDialog("Ingresar rol");
+  			  controlar.addUser(new Usuario(nombre,contra,rol));		
   			break;
           case 5:
         	  //Editar
         	  Usuario encontrado = BuscarUsuario(controlar);
   			  String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre de : " + encontrado.getNombre());
   			  String nuevoContra = JOptionPane.showInputDialog("Ingrese el nuevo contra de : " + encontrado.getContra());
+  			  String nuevoRol = JOptionPane.showInputDialog("Ingresar el nuevo rol de:" + encontrado.getRol());
   			  encontrado.setNombre(nuevoNombre);
   			  encontrado.setContra(nuevoContra);
+  			  encontrado.setRol(nuevoRol);
   			  controlar.updateUser(encontrado);
+  			  break;
           case 6:
         	   Usuario eliminar = BuscarUsuario(controlar);
   			   controlar.deleteUser(eliminar.getIdUsuario());
   			break;
-
           case 7:
               System.exit(0);
               break;

@@ -22,12 +22,10 @@ public interface UserRepository {
 	void deleteUser(int id);
 	
 	boolean validarCredenciales(String nombre, String contra);
+
+	String getRolUsuario(int idUsuario);
 	
-	void addGerente(int idUsuario);
 	
-	void addEmpleado(int idUsuario);
-	
-	void addCliente(int idUsuario);
 	
 	
 	

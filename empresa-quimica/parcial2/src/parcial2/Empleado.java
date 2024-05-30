@@ -2,21 +2,7 @@ package parcial2;
 
 import javax.swing.JOptionPane;
 
-public class Empleado extends Usuario{
-	private int idEmpleado;
-
-	public Empleado(String nombre, String contra, int idUsuario, int idEmpleado) {
-		super(nombre, contra, idUsuario);
-		this.idEmpleado = idEmpleado;
-	}
-
-	public int getIdEmpleado() {
-		return idEmpleado;
-	}
-
-	public void setIdEmpleado(int idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
+public class Empleado{
 	
 	public void mostrarMenu(){
 		String[] opciones = {"Ver Productos","Registrar venta","Salir"};

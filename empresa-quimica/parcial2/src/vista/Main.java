@@ -2,6 +2,7 @@ package vista;
 
 import javax.swing.JOptionPane;
 
+import controlador.ProductoControlador;
 import controlador.UsuarioControlador;
 import parcial2.Cliente;
 import parcial2.Empleado;
@@ -13,34 +14,31 @@ import parcial2.Usuario;
 class Main {
 
 	public static void main(String[] args) {
-		
 		UsuarioControlador controlar = new UsuarioControlador();
-		JOptionPane.showMessageDialog(null, controlar.getAllUsers());
+		//JOptionPane.showMessageDialog(null, controlar.getAllUsers());
 		
-		//Tengo que hacer la compra de productos pero esta imposible
+		
 		
 		// Crear cada tipo de usuario
-        Cliente cliente = new Cliente("nicoCliente", "1234", 1, 1);
-        Empleado empleado = new Empleado("nicoEmpleado", "4567", 2, 1);
-        Gerente gerente = new Gerente("nicoGerente", "7890", 3, 1);
+        Cliente cliente = new Cliente();
+        Empleado empleado = new Empleado();
         
-        // Agregar productos 
-        Producto p1 = new Producto(1, "Quimico1", 1000, "Descripción del producto 1", 0, 10);
-        Producto p2 = new Producto(2,"Quimico2", 2000, "Descripción del producto 2", 0, 20);
-        Producto p3 = new Producto(3,"Quimico3", 1000, "Descripción del producto 1", 1, 30);
-        Producto p4 = new Producto(4,"Quimico4", 2000, "Descripción del producto 2", 1, 40);
+        ProductoControlador productoControlador = new ProductoControlador(); // Inicializa ProductoControlador correctamente
+        Gerente gerente = new Gerente(productoControlador);
      
         //Cargar Ventas
         Ventas v1 = new Ventas("Dos Quimicos 1", 20, 90000, "29/10");
         Ventas v2 = new Ventas("Dos Quimicos 2", 50, 40000, "9/12");
 
+        
+        
+        
+        
         //Menu para iniciar sesion 
-        
-        
-        
+      
         String[] opciones = {"Registrarse", "Iniciar Seson"};
         
-        Usuario usuario = new Usuario(null, null);
+        Usuario usuario = new Usuario(null, null, null);
 
         int eleccion = JOptionPane.showOptionDialog(
             null,"Seleccione entre Registro/Inicio", "Inicio de Sesión", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,null,opciones,opciones[0]
@@ -60,30 +58,30 @@ class Main {
                 switch (eleccionRegistro) {
                 
                     case 0:
+                    	String rolG = "gerente";
                     	JOptionPane.showMessageDialog(null, "Te estas registrando como Gerente");
                     	String nombreG = JOptionPane.showInputDialog("Ingrese nombre");
             			String contraG = JOptionPane.showInputDialog("Ingrese contra");
-            			controlar.addUser(new Usuario(nombreG,contraG));
+            			controlar.addUser(new Usuario(nombreG, contraG, rolG));
             			int idUsuario = controlar.getIdUsuario(nombreG);
-            			controlar.addGerente(idUsuario); //Solo eliminaria esto
             			gerente.mostrarMenu();
                         break;
                     case 1:
+                    	String rolE = "empleado";
                     	JOptionPane.showMessageDialog(null, "Te estas registrando como Empleado");
                     	String nombreE = JOptionPane.showInputDialog("Ingrese nombre");
             			String contraE = JOptionPane.showInputDialog("Ingrese contra");
-            			controlar.addUser(new Usuario(nombreE,contraE));	
+            			controlar.addUser(new Usuario(nombreE, contraE, rolE));	
             			int idUsuarioE = controlar.getIdUsuario(nombreE);
-            			controlar.addEmpleado(idUsuarioE);  //Solo eliminaria esto
             			empleado.mostrarMenu();
                         break;
                     case 2:
+                    	String rolC = "cliente";
                     	JOptionPane.showMessageDialog(null, "Te estas registrando como Cliente");
                     	String nombreC = JOptionPane.showInputDialog("Ingrese nombre");
             			String contraC = JOptionPane.showInputDialog("Ingrese contra");
-            			controlar.addUser(new Usuario(nombreC,contraC));
+            			controlar.addUser(new Usuario(nombreC, contraC, rolC));	
             			int idUsuarioC = controlar.getIdUsuario(nombreC);  //Solo eliminaria esto
-            			controlar.addCliente(idUsuarioC);
             			cliente.mostrarMenu();
                         break;
                     default:
@@ -93,8 +91,7 @@ class Main {
                 
                 break;
             case 1:
-            	  
-            	String[] opcionesRegistro2 = {"Gerente", "Empleado", "Cliente"};
+String[] opcionesRegistro2 = {"Gerente", "Empleado", "Cliente"};
             	
             	//Eliminaria este menu y hago el inicio de sesion unico y dentro de iniciodeSesion pido el valor de rol en la tabla usuario
             	//Depenidenod de ese resultado muestro un menu o otro.
@@ -128,7 +125,7 @@ class Main {
                          } else {
                              JOptionPane.showMessageDialog(null, "No se pudo iniciar sesión. Verifica tus credenciales.");
                          }
-                        break;
+                    	break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opción no válida");
         }
@@ -137,8 +134,8 @@ class Main {
        
             
         
-        
 	}
+	
 
 }
 

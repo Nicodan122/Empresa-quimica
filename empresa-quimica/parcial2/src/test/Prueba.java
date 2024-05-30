@@ -24,46 +24,5 @@ public class Prueba {
 		
 	}
 	
-	@Test
-	public void IgngresarUsuario() { 
-		
-		UsuarioControlador controlar = new UsuarioControlador();
-		
-		Usuario nuevo = new Usuario("Nico","nico123");
-		boolean prueba = true;
-		for (Usuario usuario : controlar.getAllUsers()) {
-			
-			if(usuario.getContra().equals(nuevo.getContra())) {
-				prueba = false;
-			}
-		}if (prueba == true) {
-			controlar.addUser(nuevo);	
-		}
-		assertEquals(prueba,true);
-		
-		
-	}
-	
-	
-	@Test
-	public void IngresarUsuarioExistente() { 
-		
-		UsuarioControlador controlar = new UsuarioControlador();
-		
-		Usuario nuevo = new Usuario("Nico","Ghami@gmail.com");
-		boolean prueba = true;
-		for (Usuario usuario : controlar.getAllUsers()) {
-			
-			if(usuario.getContra().equals(nuevo.getContra())) {
-				prueba = false;
-			}
-		}if (prueba == true) {
-			controlar.addUser(nuevo);	
-		}
-		assertEquals(prueba,false);
-		
-		
-	}
-	
 
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import interfaces.ProductoRepository;
 import parcial2.Producto;
-import parcial2.Usuario;
+
 
 public class ProductoControlador implements ProductoRepository  {
 	private final Connection connection;
@@ -31,7 +31,8 @@ public class ProductoControlador implements ProductoRepository  {
 				resultSet.getDouble("precio"),
 				resultSet.getString("descripcion"),
 				resultSet.getInt("nivel"),
-				resultSet.getInt("stock")
+				resultSet.getInt("stock"),
+				resultSet.getBytes("imagen")           //Fijarme si el getByte que puse es el correcto elegi el de String en vez de int.
 				);
 				product.add(producto);
 			}	
@@ -44,12 +45,13 @@ public class ProductoControlador implements ProductoRepository  {
 	@Override
 	public void addProduct(Producto producto) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("INSERT INTO productos (nombre, precio, descripcion, nivel, stock) VALUES (?, ?, ?, ?, ?)");
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO productos (nombre, precio, descripcion, nivel, stock, imagen) VALUES (?, ?, ?, ?, ?, ?)");
 			statement.setString(1, producto.getNombre());
 			statement.setDouble(2, producto.getPrecio());
 			statement.setString(3, producto.getDescripcion());
 			statement.setInt(4, producto.getNivel());
 			statement.setInt(5, producto.getStock());
+			statement.setBytes(6, producto.getImagen()); //Fijarme si el setBytes esta bien
 			
 			int rowsInserted = statement.executeUpdate();
 			if (rowsInserted > 0) {
@@ -60,5 +62,80 @@ public class ProductoControlador implements ProductoRepository  {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public boolean upDateProduct(Producto producto) {
+
+		try {
+			PreparedStatement statement = connection.prepareStatement("UPDATE productos SET nombre=?, precio=?, descripcion=?, nivel=?, stock=?, imagen=? WHERE idProducto = ?");
+			statement.setString(1, producto.getNombre());
+			statement.setDouble(2, producto.getPrecio());
+			statement.setString(3, producto.getDescripcion());
+			statement.setInt(4, producto.getNivel());
+			statement.setInt(5, producto.getStock());
+			statement.setBytes(6, producto.getImagen());
+			//Puede ser que vaya getIdPrODUCTO, LO VI EN LA RAMA DE GAMALIEL
+					
+			int rowsUpdated = statement.executeUpdate();
+			if (rowsUpdated > 0) {
+				System.out.println("Producto Actualizado Exitosamente.");
+				return true;
+			}
+			return false;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+		
+	}
+
+	
+	@Override
+	public Producto getProductById(int id) {
+		Producto producto = null;
+		try {
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM productos WHERE idProducto = ?");
+			statement.setInt(1, id);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			if (resultSet.next()) {
+				 producto = new Producto(resultSet.getInt("idProducto"),
+						 resultSet.getString("nombre"),
+						 resultSet.getDouble("precio"),
+						 resultSet.getString("descripcion"),
+						 resultSet.getInt("nivel"),
+						 resultSet.getInt("stock"),
+						 resultSet.getBytes("imagen"));
+						 
+				
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return producto;
+		
+	}
+
+	@Override
+	public void deleteProduct(int id) {
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement("DELETE FROM productos WHERE idProducto =?");
+			statement.setInt(1, id);
+			
+			int rowsDeleted = statement.executeUpdate();
+			if (rowsDeleted > 0) {
+				System.out.println("Producto Eliminado Exitosamente");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	
+	
 	
 }

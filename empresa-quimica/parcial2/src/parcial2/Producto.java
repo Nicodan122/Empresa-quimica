@@ -13,6 +13,7 @@ public class Producto {
 	private String descripcion;
 	private int nivel;
 	private int stock;
+	private byte[] imagen;
 	private static List<Producto> listaProductos = new ArrayList<>();
 	
 	public Producto(int idProducto, String nombre, double precio, String descripcion, int nivel, int stock) {
@@ -28,6 +29,26 @@ public class Producto {
 	}
 	
 	
+	
+	
+
+	public Producto(int idProducto, String nombre, double precio, String descripcion, int nivel, int stock,
+			byte[] imagen) {
+		super();
+		this.idProducto = idProducto;
+		this.nombre = nombre;
+		this.precio = precio;
+		this.descripcion = descripcion;
+		this.nivel = nivel;
+		this.stock = stock;
+		this.imagen = imagen;
+		
+		listaProductos.add(this); //Nose si dejarlo o no
+	}
+
+
+
+
 
 	public int getIdProducto() {
 		return idProducto;
@@ -83,6 +104,24 @@ public class Producto {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
+	
+	
+
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+
+
+
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
+
+
+
+
 
 	public static List<Producto> getListaProductos() {
         return listaProductos;

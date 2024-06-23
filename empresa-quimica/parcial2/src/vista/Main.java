@@ -14,6 +14,8 @@ import parcial2.Usuario;
 class Main {
 
 	public static void main(String[] args) {
+		
+		 
 		UsuarioControlador controlar = new UsuarioControlador();
 		//JOptionPane.showMessageDialog(null, controlar.getAllUsers());
 		
@@ -133,7 +135,7 @@ String[] opcionesRegistro2 = {"Gerente", "Empleado", "Cliente"};
        }
        
             
-        
+      
 	}
 	
 

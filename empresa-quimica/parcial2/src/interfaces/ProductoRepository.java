@@ -9,12 +9,14 @@ public interface ProductoRepository {
 	//protoripos de metodos
 		List<Producto> getAllProducts();
 		
-		//Producto getProductById(int id);
+		Producto getProductById(int id);
 		
 		void addProduct(Producto producto);
 		
-		//void updateProduct(Producto producto);
+		boolean upDateProduct(Producto producto);
 		
-		//void deleteProduct(int id);
+		
+		
+		void deleteProduct(int id);
 
 }

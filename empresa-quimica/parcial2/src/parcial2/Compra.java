@@ -11,6 +11,7 @@ public class Compra {
 	private int idCompra;
 	private int idUsuario;
 	
+	
 	public Compra(int idCompra, int idUsuario) {
 		super();
 		this.idCompra = idCompra;

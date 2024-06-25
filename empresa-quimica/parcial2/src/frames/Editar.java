@@ -90,7 +90,7 @@ public class Editar extends JFrame {
 					try {
 					    controlador.updateUser(usuario);
 					    JOptionPane.showMessageDialog(null, "Usuario actualizado exitosamente");
-					    Home home = new Home(usuario.getNombre());
+					    Admin admin = new Admin(usuario.getNombre());
 					    dispose();
 					} catch (Exception ee) {
 					    JOptionPane.showMessageDialog(null, "No se pudo actualizar el usuario: " + ee.getMessage());

@@ -70,7 +70,7 @@ public class Cliente extends Usuario {
 		
 	}
 
-	private void realizarCompra() {
+	public void realizarCompra() {
 		ProductoControlador productoControlador = new ProductoControlador();
 		ControladorCompra compraControlador = new ControladorCompra();
 		ControladorCompraDetalle controladorCompraDetalle = new ControladorCompraDetalle();

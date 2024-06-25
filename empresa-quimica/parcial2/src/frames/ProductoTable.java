@@ -126,10 +126,9 @@ public class ProductoTable extends JFrame {
 	        btnEditar.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                if (seleccionado.getIdProducto() != 0) {
+	                if (seleccionado != null && seleccionado.getIdProducto() != 0) {
 	                    // Aquí puedes llamar a tu ventana de edición, pasando el producto seleccionado
-	                    // new EditarProducto(seleccionado).setVisible(true);
-	                    JOptionPane.showMessageDialog(null, "Funcionalidad de editar aún no implementada");
+	                     new EditarProducto(seleccionado).setVisible(true);
 	                } else {
 	                    JOptionPane.showMessageDialog(null, "Seleccione un producto");
 	                }

@@ -7,7 +7,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.MediaTracker;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class Home extends JFrame {
 
@@ -18,7 +25,7 @@ public class Home extends JFrame {
 	public Home(String nombre) {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 473, 524);
+		setBounds(100, 100, 498, 394);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -26,45 +33,57 @@ public class Home extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Bienvenido Cliente " + nombre);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 28));
-		lblNewLabel.setBounds(21, 10, 416, 38);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 28));
+		lblNewLabel.setBounds(21, 10, 453, 38);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblNombre = new JLabel("New label");
-		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNombre.setBounds(196, 245, 142, 44);
-		contentPane.add(lblNombre);
-		
-		JLabel lblRol = new JLabel("New label");
-		lblRol.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblRol.setBounds(348, 245, 142, 44);
-		contentPane.add(lblRol);
-		
-		JLabel lblId = new JLabel("New label");
-		lblId.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblId.setBounds(44, 245, 142, 44);
-		contentPane.add(lblId);
-		
-		JLabel lblNewLabel_1 = new JLabel("Datos Personales:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(173, 207, 142, 28);
-		contentPane.add(lblNewLabel_1);
-		
 		JLabel lblNewLabel_1_1 = new JLabel("Funciones:");
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1.setBounds(44, 327, 142, 28);
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_1_1.setBounds(21, 244, 142, 28);
 		contentPane.add(lblNewLabel_1_1);
 		
 		JButton btnProduct = new JButton("Ver Productos");
-		btnProduct.setBounds(45, 408, 116, 44);
+		btnProduct.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnProduct.setForeground(new Color(255, 255, 255));
+		btnProduct.setBackground(new Color(0, 128, 128));
+		btnProduct.setBorderPainted(false);
+		btnProduct.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+			}
+		});
+		btnProduct.setBounds(21, 282, 116, 44);
 		contentPane.add(btnProduct);
 		
 		JButton btnSell = new JButton("Realizar Compra");
-		btnSell.setBounds(174, 408, 116, 44);
+		btnSell.setBackground(new Color(0, 128, 128));
+		btnSell.setBorderPainted(false);
+		btnSell.setForeground(new Color(255, 255, 255));
+		btnSell.setFont(new Font("Tahoma", Font.BOLD, 10));
+		btnSell.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				VentaForm venta = new VentaForm();
+				dispose();
+			}
+		});
+		btnSell.setBounds(150, 282, 142, 44);
 		contentPane.add(btnSell);
 		
-		JButton btnUsers = new JButton("Ver Compras");
-		btnUsers.setBounds(300, 408, 116, 44);
-		contentPane.add(btnUsers);
+		JLabel lblImagen = new JLabel("");
+		lblImagen.setBounds(132, 53, 194, 181);
+		contentPane.add(lblImagen);
+		
+		 // Load the image from the "imagenes" folder
+        ImageIcon imgIcon = new ImageIcon(getClass().getResource("/imagenes/patient.png"));
+        if (imgIcon.getImageLoadStatus() == MediaTracker.ERRORED) {
+            System.err.println("Error loading image");
+        } else {
+            Image img = imgIcon.getImage().getScaledInstance(lblImagen.getWidth(), lblImagen.getHeight(), Image.SCALE_SMOOTH);
+            lblImagen.setIcon(new ImageIcon(img));
+        }
+		
 	}
 }

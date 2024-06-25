@@ -18,7 +18,18 @@ public class CompraDetalle {
 		this.subtotal = subtotal;
 	}
 	
-	
+
+	public CompraDetalle(int idProducto, int cantidad) {
+		super();
+		this.idProducto = idProducto;
+		this.cantidad = cantidad;
+	}
+
+
+
+
+
+
 
 	public int getIdDetalle() {
 		return idDetalle;

@@ -45,6 +45,7 @@ public class ProductoForm extends JFrame {
 
 	
 	public ProductoForm() {
+		this.setVisible(true);
 		 setTitle("Agregar Producto");
 	        setSize(484, 465);
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -147,6 +148,8 @@ public class ProductoForm extends JFrame {
 	        controlador.addProduct(producto);
 	        
 	        JOptionPane.showMessageDialog(this, "Producto guardado exitosamente");
+	        ProductoTable table = new ProductoTable();
+	        dispose();
 	    }
 
 	    public static void main(String[] args) {

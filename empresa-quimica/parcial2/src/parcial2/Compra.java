@@ -10,13 +10,22 @@ import javax.swing.JOptionPane;
 public class Compra {
 	private int idCompra;
 	private int idUsuario;
-	
+	 private List<CompraDetalle> detalles;
 	
 	public Compra(int idCompra, int idUsuario) {
 		super();
 		this.idCompra = idCompra;
 		this.idUsuario = idUsuario;
 	}
+
+	public Compra(int idCompra, int idUsuario, List<CompraDetalle> detalles) {
+		super();
+		this.idCompra = idCompra;
+		this.idUsuario = idUsuario;
+		this.detalles = detalles;
+	}
+
+
 
 	public Compra(int idUsuario) {
 		super();
@@ -38,6 +47,16 @@ public class Compra {
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
 	}
+
+	public List<CompraDetalle> getDetalles() {
+		return detalles;
+	}
+
+	public void setDetalles(List<CompraDetalle> detalles) {
+		this.detalles = detalles;
+	}
+	
+	
 	
 	
 	

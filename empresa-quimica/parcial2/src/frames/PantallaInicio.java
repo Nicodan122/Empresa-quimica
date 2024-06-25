@@ -12,10 +12,16 @@ import parcial2.Usuario;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.MediaTracker;
+
 import javax.swing.JPasswordField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class PantallaInicio extends JFrame {
 
@@ -45,7 +51,7 @@ public class PantallaInicio extends JFrame {
 	 */
 	public PantallaInicio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 357, 451);
+		setBounds(100, 100, 342, 542);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -53,30 +59,36 @@ public class PantallaInicio extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNombre = new JLabel("Usuario:");
-		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNombre.setBounds(55, 23, 174, 47);
+		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblNombre.setBounds(47, 155, 174, 47);
 		contentPane.add(lblNombre);
 		
 		inpNombre = new JTextField();
-		inpNombre.setBounds(55, 80, 236, 47);
+		inpNombre.setBounds(47, 192, 236, 47);
 		contentPane.add(inpNombre);
 		inpNombre.setColumns(10);
 		
 		JLabel lblContrasenia = new JLabel("Contrasenia:");
-		lblContrasenia.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblContrasenia.setBounds(55, 135, 174, 47);
+		lblContrasenia.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblContrasenia.setBounds(47, 267, 174, 47);
 		contentPane.add(lblContrasenia);
 		
 		inpContrasenia = new JPasswordField();
-		inpContrasenia.setBounds(55, 192, 236, 45);
+		inpContrasenia.setBounds(47, 304, 236, 45);
 		contentPane.add(inpContrasenia);
 		
 		JLabel lblError = new JLabel("Error al ingresar datos");
+		lblError.setBackground(new Color(255, 0, 0));
+		lblError.setForeground(new Color(255, 0, 0));
+		lblError.setFont(new Font("Tahoma", Font.ITALIC, 10));
 		lblError.setEnabled(false);
-		lblError.setBounds(55, 247, 236, 20);
+		lblError.setBounds(47, 359, 236, 20);
 		contentPane.add(lblError);
 		lblError.setVisible(false);
 		JButton btnIngresar = new JButton("Iniciar Sesion");
+		btnIngresar.setForeground(new Color(255, 255, 255));
+		btnIngresar.setBorderPainted(false);
+		btnIngresar.setBackground(new Color(0, 128, 128));
 		
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -90,7 +102,6 @@ public class PantallaInicio extends JFrame {
 				    // Gerente
 					
 					Admin admin = new Admin(inpNombre.getText());
-				
 				    dispose(); 
 				} else if (respuesta.equals("rol:empleado")) {
 				    // Empleado
@@ -104,10 +115,13 @@ public class PantallaInicio extends JFrame {
 			}
 		});
 		btnIngresar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnIngresar.setBounds(55, 277, 236, 37);
+		btnIngresar.setBounds(47, 389, 236, 37);
 		contentPane.add(btnIngresar);
 		
 		JButton btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse.setForeground(new Color(255, 255, 255));
+		btnRegistrarse.setBackground(new Color(0, 128, 128));
+		btnRegistrarse.setBorderPainted(false);
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -117,8 +131,21 @@ public class PantallaInicio extends JFrame {
 			}
 		});
 		btnRegistrarse.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnRegistrarse.setBounds(55, 326, 236, 37);
+		btnRegistrarse.setBounds(47, 438, 236, 37);
 		contentPane.add(btnRegistrarse);
+		
+		JLabel lblImagen = new JLabel("");
+		lblImagen.setBounds(94, 29, 127, 116);
+		contentPane.add(lblImagen);
+		
+		// Load the image from the "imagenes" folder
+        ImageIcon imgIcon = new ImageIcon(getClass().getResource("/imagenes/compound.png"));
+        if (imgIcon.getImageLoadStatus() == MediaTracker.ERRORED) {
+            System.err.println("Error loading image");
+        } else {
+            Image img = imgIcon.getImage().getScaledInstance(lblImagen.getWidth(), lblImagen.getHeight(), Image.SCALE_SMOOTH);
+            lblImagen.setIcon(new ImageIcon(img));
+        }
 		
 		
 	}

@@ -74,6 +74,7 @@ public class ProductoControlador implements ProductoRepository  {
 			statement.setInt(4, producto.getNivel());
 			statement.setInt(5, producto.getStock());
 			statement.setBytes(6, producto.getImagen());
+			 statement.setInt(7, producto.getIdProducto());
 			//Puede ser que vaya getIdPrODUCTO, LO VI EN LA RAMA DE GAMALIEL
 					
 			int rowsUpdated = statement.executeUpdate();

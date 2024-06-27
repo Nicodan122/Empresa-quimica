@@ -69,7 +69,7 @@ public class PantallaRegistro extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				PantallaInicio inicio = new PantallaInicio();
-				
+				dispose();
 			}
 		});
 		btnIngresar.setForeground(new Color(255, 255, 255));

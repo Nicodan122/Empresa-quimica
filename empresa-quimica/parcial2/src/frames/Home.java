@@ -5,7 +5,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controlador.UsuarioControlador;
+import parcial2.Usuario;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.MediaTracker;
@@ -23,6 +29,7 @@ public class Home extends JFrame {
 
 	
 	public Home(String nombre) {
+		
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 498, 394);
@@ -64,9 +71,24 @@ public class Home extends JFrame {
 		btnSell.setFont(new Font("Tahoma", Font.BOLD, 10));
 		btnSell.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				VentaForm venta = new VentaForm();
-				dispose();
+				 // Obtener el idUsuario
+			    UsuarioControlador usuarioControlador = new UsuarioControlador();
+			    int idUsuario = usuarioControlador.getIdUsuario(nombre);
+
+			    // Obtener el Usuario completo usando el idUsuario obtenido
+			    Usuario usuarioActual = usuarioControlador.getUserById(idUsuario);
+
+			    // Verificar si el usuario se encontró correctamente
+			    if (usuarioActual != null) {
+			        // Crear la ventana de venta pasando el usuario
+			        VentaForm venta = new VentaForm(usuarioActual);
+			        venta.setVisible(true);
+
+			        // Cerrar la ventana actual (Home)
+			        dispose();
+			    } else {
+			        JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
+			    }
 			}
 		});
 		btnSell.setBounds(150, 282, 142, 44);

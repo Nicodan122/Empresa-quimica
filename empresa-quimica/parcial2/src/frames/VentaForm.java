@@ -34,7 +34,8 @@ public class VentaForm extends JFrame {
     private Usuario usuarioActual;
 	
 	
-	public VentaForm( ) {
+	public VentaForm(Usuario usuarioActual ) {
+		this.usuarioActual = usuarioActual; // Almacenar el usuario actual
 		    this.setVisible(true);
 	        setTitle("Gestionar Ventas");
 	        setSize(910, 350);
@@ -76,11 +77,23 @@ public class VentaForm extends JFrame {
 	        		
 	        		//Mostrar el metodo de comenzar compra
 	        		Cliente cliente = new Cliente();
-	        		cliente.realizarCompra();
+	        		cliente.realizarCompra(usuarioActual.getIdUsuario());
+	        		actualizarTabla();
 	        	}
 	        });
 	        btnCompra.setBounds(615, 268, 270, 35);
 	        contentPane.add(btnCompra);
+	        
+	        JButton btnVerCompras = new JButton("Ver Compras");
+	        btnVerCompras.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        		
+	        		VerCompras compras = new VerCompras(usuarioActual);
+	        		
+	        	}
+	        });
+	        btnVerCompras.setBounds(615, 313, 270, 35);
+	        contentPane.add(btnVerCompras);
 
 	        // Configurar el modelo de selección
 	        ListSelectionModel selectionModel = table.getSelectionModel();
@@ -115,7 +128,7 @@ public class VentaForm extends JFrame {
 
 	        // Agregar los datos al modelo
 	        for (Producto producto : productos) {
-	        	model.addRow(new Object[] {producto.getIdProducto(), producto.getNombre(), producto.getPrecio(), producto.getDescripcion(), producto.getNivel(), producto.getStock(), producto.getImagen()});
+	        	model.addRow(new Object[] {producto.getIdProducto(), producto.getNombre(), producto.getPrecio(), producto.getDescripcion(), producto.getStock(), producto.getImagen()});
 	        }
 	    }
 

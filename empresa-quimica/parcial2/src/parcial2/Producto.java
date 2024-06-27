@@ -31,6 +31,24 @@ public class Producto {
 	
 	
 	
+	
+	
+
+	public Producto(int idProducto, String nombre, double precio, String descripcion, int stock, byte[] imagen) {
+		super();
+		this.idProducto = idProducto;
+		this.nombre = nombre;
+		this.precio = precio;
+		this.descripcion = descripcion;
+		this.stock = stock;
+		this.imagen = imagen;
+	}
+
+
+
+
+
+
 
 	public Producto(int idProducto, String nombre, double precio, String descripcion, int nivel, int stock,
 			byte[] imagen) {

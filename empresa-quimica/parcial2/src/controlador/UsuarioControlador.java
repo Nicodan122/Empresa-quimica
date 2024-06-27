@@ -131,24 +131,31 @@ public class UsuarioControlador implements UserRepository {
 
 		
 
-		@Override
-		public int getIdUsuario(String nombreUsuario) {
-			int idUsuario = -1; // Valor por defecto en caso de que no se encuentre el usuario
+		 @Override
+		 public int getIdUsuario(String nombreUsuario) {
+		     int idUsuario = -1; // Valor por defecto en caso de que no se encuentre el usuario
 
-		    try {
-		        PreparedStatement statement = connection.prepareStatement("SELECT idUsuario FROM usuarios WHERE nombre = ?");
-		        statement.setString(1, nombreUsuario);
-		        ResultSet resultSet = statement.executeQuery();
+		     try {
+		         // Preparar la consulta SQL
+		         String sql = "SELECT idUsuario FROM usuarios WHERE nombre = ?";
+		         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+		             // Establecer el parámetro nombreUsuario en la consulta
+		             statement.setString(1, nombreUsuario);
 
-		        if (resultSet.next()) {
-		            idUsuario = resultSet.getInt("idUsuario");
-		        }
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		    }
+		             // Ejecutar la consulta y obtener el resultado
+		             try (ResultSet resultSet = statement.executeQuery()) {
+		                 if (resultSet.next()) {
+		                     idUsuario = resultSet.getInt("idUsuario");
+		                 }
+		             }
+		         }
+		     } catch (SQLException e) {
+		         // Manejar la excepción apropiadamente (lanzarla o manejarla según sea necesario)
+		         e.printStackTrace(); // Aquí podrías considerar un manejo más robusto
+		     }
 
-		    return idUsuario;
-		}
+		     return idUsuario;
+		 }
 
 		public String getRolUsuario(int idUsuario) {
 		    String rolUsuario = ""; // 

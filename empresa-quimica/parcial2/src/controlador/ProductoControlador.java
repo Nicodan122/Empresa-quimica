@@ -118,6 +118,32 @@ public class ProductoControlador implements ProductoRepository  {
 		return producto;
 		
 	}
+	
+	@Override
+	public Producto getProductByIdB(int id) {
+		Producto producto = null;
+		try {
+			PreparedStatement statement = connection.prepareStatement("SELECT idProducto, nombre, precio, descripcion, stock, imagen WHERE idProducto = ?");
+			statement.setInt(1, id);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			if (resultSet.next()) {
+				 producto = new Producto(resultSet.getInt("idProducto"),
+						 resultSet.getString("nombre"),
+						 resultSet.getDouble("precio"),
+						 resultSet.getString("descripcion"),
+						 resultSet.getInt("stock"),
+						 resultSet.getBytes("imagen"));
+						 
+				
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return producto;
+		
+	}
 
 	@Override
 	public void deleteProduct(int id) {
@@ -135,6 +161,18 @@ public class ProductoControlador implements ProductoRepository  {
 		}
 		
 	}
+	
+	@Override
+	public void actualizarStockProducto(int idProducto, int nuevoStock) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE productos SET stock = ? WHERE idProducto = ?");
+            statement.setInt(1, nuevoStock);
+            statement.setInt(2, idProducto);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 	
 	

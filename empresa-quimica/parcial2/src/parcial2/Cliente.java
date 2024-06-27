@@ -57,7 +57,7 @@ public class Cliente extends Usuario {
               break;
           case 1:
         	   mostrarProductos();
-               realizarCompra();
+               //realizarCompra();
               break;
           case 2:
         	  System.exit(0);
@@ -70,67 +70,76 @@ public class Cliente extends Usuario {
 		
 	}
 
-	public void realizarCompra() {
-		ProductoControlador productoControlador = new ProductoControlador();
-		ControladorCompra compraControlador = new ControladorCompra();
-		ControladorCompraDetalle controladorCompraDetalle = new ControladorCompraDetalle();
-		
-		List<Producto> productos = productoControlador.getAllProducts();
-		if (productos.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "No hay productos disponibles");
-			return;
-		}
-		
-		List<CompraDetalle> detalles = new ArrayList<>();
-		//double total = 0;
-		
-		while (true) {
-            String idProductoStr = JOptionPane.showInputDialog("Ingrese el ID del producto a comprar (o 'fin' para terminar):");
-            if (idProductoStr.equalsIgnoreCase("fin")) {
-                break;
-            }
+	public void realizarCompra(int idUsuario) {
+	    ProductoControlador productoControlador = new ProductoControlador();
+	    ControladorCompra compraControlador = new ControladorCompra();
+	    ControladorCompraDetalle controladorCompraDetalle = new ControladorCompraDetalle();
+	    
+	    List<Producto> productos = productoControlador.getAllProducts();
+	    if (productos.isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "No hay productos disponibles");
+	        return;
+	    }
+	    
+	    List<CompraDetalle> detalles = new ArrayList<>();
+	    
+	    while (true) {
+	        String idProductoStr = JOptionPane.showInputDialog("Ingrese el ID del producto a comprar (o 'fin' para terminar):");
+	        if (idProductoStr.equalsIgnoreCase("fin")) {
+	            break;
+	        }
 
-            int idProducto = Integer.parseInt(idProductoStr);
-            Producto producto = productos.stream().filter(p -> p.getIdProducto() == idProducto).findFirst().orElse(null);
-            if (producto == null) {
-                JOptionPane.showMessageDialog(null, "Producto no encontrado.");
-                continue;
-            }
+	        int idProducto = Integer.parseInt(idProductoStr);
+	        Producto producto = productos.stream().filter(p -> p.getIdProducto() == idProducto).findFirst().orElse(null);
+	        if (producto == null) {
+	            JOptionPane.showMessageDialog(null, "Producto no encontrado.");
+	            continue;
+	        }
 
-            int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad:"));
-            if (cantidad > producto.getStock()) {
-                JOptionPane.showMessageDialog(null, "Cantidad no disponible en stock.");
-                continue;
-            }
+	        int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad:"));
+	        
+	        // Validación para cantidad negativa
+	        if (cantidad <= 0) {
+	            JOptionPane.showMessageDialog(null, "La cantidad debe ser mayor a cero, no puede ser negativo.");
+	            continue;
+	        }
+	        
+	        if (cantidad > producto.getStock()) {
+	            JOptionPane.showMessageDialog(null, "Cantidad no disponible en stock.");
+	            continue;
+	        }
 
-            double subtotal = producto.getPrecio() * cantidad;
-            //total += subtotal;
+	        double subtotal = producto.getPrecio() * cantidad;
 
-            CompraDetalle detalle = new CompraDetalle(0, 0, idProducto, cantidad, producto.getPrecio(), subtotal);
-            detalles.add(detalle);
+	        CompraDetalle detalle = new CompraDetalle(0, 0, idProducto, cantidad, producto.getPrecio(), subtotal);
+	        detalles.add(detalle);
+	        
+	        // Descontar del stock en la base de datos
+	        producto.setStock(producto.getStock() - cantidad);
+	        productoControlador.actualizarStockProducto(idProducto, producto.getStock()); // Código agregado
 
-            producto.setStock(producto.getStock() - cantidad);
-        }
+	        producto.setStock(producto.getStock() - cantidad);
+	    }
 
-        if (detalles.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningún producto.");
-            return;
-        }
+	    if (detalles.isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "No se ha seleccionado ningún producto.");
+	        return;
+	    }
 
-        System.out.println("ID de Usuario para la compra: " + getIdUsuario());
-        Compra compra = new Compra(getIdUsuario());
-        //compra.setTotal(total);
-        int idCompra = compraControlador.crearCompra(compra);
+	    System.out.println("ID de Usuario para la compra: " + idUsuario); // Agregar esta línea para depuración
 
-        if (idCompra > 0) {
-            for (CompraDetalle detalle : detalles) {
-                detalle.setIdCompra(idCompra);
-                controladorCompraDetalle.agregarDetalle(detalle);
-            }
-            JOptionPane.showMessageDialog(null, "Compra realizada exitosamente.");
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al realizar la compra.");
-        }
+	    Compra compra = new Compra(idUsuario);
+	    int idCompra = compraControlador.crearCompra(compra);
+
+	    if (idCompra > 0) {
+	        for (CompraDetalle detalle : detalles) {
+	            detalle.setIdCompra(idCompra);
+	            controladorCompraDetalle.agregarDetalle(detalle);
+	        }
+	        JOptionPane.showMessageDialog(null, "Compra realizada exitosamente.");
+	    } else {
+	        JOptionPane.showMessageDialog(null, "Error al realizar la compra.");
+	    }
 		
 	}
 	

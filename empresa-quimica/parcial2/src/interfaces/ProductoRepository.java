@@ -15,8 +15,10 @@ public interface ProductoRepository {
 		
 		boolean upDateProduct(Producto producto);
 		
-		
+		public Producto getProductByIdB(int id);
 		
 		void deleteProduct(int id);
+		
+	    void actualizarStockProducto(int idProducto, int nuevoStock);
 
 }
